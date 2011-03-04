@@ -32,12 +32,9 @@ public class StaXParser {
         List<Item> items = new ArrayList<Item>();
         
         try {
-            // First create a new XMLInputFactory
             XMLInputFactory inputFactory = XMLInputFactory.newInstance();
-            // Setup a new eventReader
             InputStream in = new FileInputStream(configFile);
             XMLEventReader eventReader = inputFactory.createXMLEventReader(in);
-            // Read the XML document
             Item item = null;
             
             while (eventReader.hasNext()) {
@@ -45,10 +42,8 @@ public class StaXParser {
 
                 if (event.isStartElement()) {
                     StartElement startElement = event.asStartElement();
-                    // If we have a item element we create a new item
                     if (startElement.getName().getLocalPart() == (ITEM)) {
                         item = new Item();
-                        // We read the attributes from this tag and add the date attribute to our object
                         Iterator<Attribute> attributes = startElement.getAttributes();
                         while (attributes.hasNext()) {
                             Attribute attribute = attributes.next();
@@ -83,7 +78,7 @@ public class StaXParser {
                         continue;
                     }
                 }
-                // If we reach the end of an item element we add it to the list
+                
                 if (event.isEndElement()){
                     EndElement endElement = event.asEndElement();
                     if (endElement.getName().getLocalPart() ==(ITEM)){
